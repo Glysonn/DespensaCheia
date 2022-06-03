@@ -1,67 +1,85 @@
+
 //importando funções de outros arquivos
 const gerarDados = require("./gerarDados"); //gera todos os dados necessários para o BD. 
+const conectarBD = require("./bd"); //
 
 const contribuidores = [];
 const beneficiarios = [];
 
-
-//GERAR DADOS CONTRIBUIDOR - O parâmetro é a quantidade de dados a ser gerado. Ex.: gerarDadosContrib(1);
+//GERAR DADOS CONTRIBUIDOR - O parâmetro na hora de chamar é a quantidade de dados a ser gerado. Ex.: gerarDadosContrib(1);
 function gerarDadosContrib(qnt) {
     for (index = 0; index < qnt; index++) {
         gerarDados();
-        //usuario contribuidor (Empresas)
+        //usuario contribuidor (Empresas) e atributos
         contrib = { cnpj, fname, lname, email, cep, senha, telefone };
-        //console.log(contrib);
         contribuidores.push(Object.values(contrib));
     }
 }
 
 //GERAR DADOS Beneficiário - O parâmetro é a quantidade de dados a ser gerado. Ex.: gerarDadosBenef(1);
-
-/*
 function gerarDadosBenef(qnt) {
     for (index = 0; index < qnt; index++) {
         gerarDados();
-        //usuario beneficiario
+        //usuario beneficiario e atributos
         benef = { cpf, fname, lname, email, cep, senha, telefone, nasc };
-        beneficiarios.push(benef);
+        beneficiarios.push(Object.values(benef));
     }
 }
 
-*/
-
 //CONEXÃO COM O BANCO DE DADOS
-var mysql = require('mysql');
-const { mergeFlags } = require('mysql/lib/ConnectionConfig');
-//setando o servidor
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "teste"
-});
-
-//SETANDO VALORES NOS VETORES DE USUARIOS
-gerarDadosContrib(1);
+conectarBD();   //função presente no arquivo bd.js
 
 //injetando comandos SQL no BD.
+function inserirDadosBd() {
 
-con.connect(function (err) {
-    if (err) throw err;
-    console.log("Connected!");
-    // var usedb = "USE despensacheia";
-    var sql = "INSERT INTO contribuidor (cnpj, f_name, l_name, email, cep, senha, telefone) VALUES ?";
+    con.connect(function (err) {
+        if (err) throw err;
+        console.log("Conexão com o banco feita com sucesso!");
 
-    function InserirDadosBd(){
-        //selecionando o db
-        con.query("USE despensacheia", function (err, result) {
-            if (err) throw err;
-          }); 
-        // adicionando os dados
-        con.query(sql, [contribuidores] , function (err, result) {
-            if (err) throw err;
-            console.log("Dados adicionados!");
-          }); 
-    }
-    InserirDadosBd();
+    });
+}
 
-});
+//DADOS DE CONTRIBUIDOR
+function InserirDadosContrib(qnt) {
+
+    let insertContrib = "INSERT INTO contribuidor (cnpj, f_name, l_name, email, cep, senha, telefone) VALUES ?";
+    //!!!  importante escolher quantas vezes os dados serão gerados !!!
+    gerarDadosContrib(qnt);
+    //selecionando o db
+    con.query("USE despensacheia", function (err, result) {
+        if (err) throw err;
+    });
+    // adicionando os dados
+    con.query(insertContrib, [contribuidores], function (err, result) {
+        if (err) throw err;
+        console.log("Dados de contribuidor adicionados!");
+    });
+}
+
+//DADOS DE BENEFICIÁRIO
+function InserirDadosBenef(qnt) {
+
+    let insertBenef = "INSERT INTO beneficiario (cpf, f_name, l_name, email, cep, senha, telefone, nascimento) VALUES ?"
+    //!!!  importante escolher quantas vezes os dados serão gerados !!!
+    gerarDadosBenef(qnt);
+    //selecionando o db
+    con.query("USE despensacheia", function (err, result) {
+        if (err) throw err;
+    });
+    // adicionando os dados
+    con.query(insertBenef, [beneficiarios], function (err, result) {
+        if (err) throw err;
+        console.log("Dados de beneficiários adicionados!");
+    });
+}
+
+
+
+
+
+//NECESSÁRIO
+inserirDadosBd();
+
+//ESCOLHER ENTRE:    (passar como parâmetro a quantidade de vezes que vai gerar o dado)
+//InserirDadosContrib(0);  //insere os dados gerados de contribuidor
+//InserirDadosBenef(0); //insere os dados gerados de beneficiário
