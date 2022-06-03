@@ -12,7 +12,7 @@ function tamSenha(min, max) {
 }
 
 //GERA TODOS OS DADOS
-const gerarDados = function() {
+const gerarDados = function () {
     fname = faker.name.firstName();    //primeiro nome
     lname = faker.name.lastName();    //sobrenome
     email = faker.internet.email(fname);   //email
