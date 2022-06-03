@@ -1,29 +1,10 @@
-//faker para gerar dados automáticos e popular as tabelas do sql.
-const { faker } = require('@faker-js/faker');
-//extensao da lib (faker-br) para gerar dados exclusivamente brasileiros (cpf, rg, cpnj).
-const brfaker = require('faker-br');
-//fazer o faker gerar os dados em formato BR
-faker.locale = 'pt_BR';
+//importando funções de outros arquivos
+const gerarDados = require("./gerarDados"); //gera todos os dados necessários para o BD. 
 
 const contribuidores = [];
 const beneficiarios = [];
 
-//gera um número aleatório
-function tamSenha(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min)
-}
-function gerarDados() {
-    fname = faker.name.firstName();    //primeiro nome
-    lname = faker.name.lastName();    //sobrenome
-    email = faker.internet.email(fname);   //email
-    telefone = faker.phone.phoneNumber();    //telefone
-    nasc = faker.date.birthdate();     //data de nascimento
-    cpf = brfaker.br.cpf();       //cpf
-    cnpj = brfaker.br.cnpj();      //cnpj
-    cep = faker.address.zipCode();    //cep
-    senha = faker.random.alphaNumeric(tamSenha(5, 15));   //senha
-    return fname, lname, email, telefone, nasc, cpf, cnpj, cep, senha;
-};
+
 //GERAR DADOS CONTRIBUIDOR - O parâmetro é a quantidade de dados a ser gerado. Ex.: gerarDadosContrib(1);
 function gerarDadosContrib(qnt) {
     for (index = 0; index < qnt; index++) {
@@ -34,7 +15,10 @@ function gerarDadosContrib(qnt) {
         contribuidores.push(Object.values(contrib));
     }
 }
+
 //GERAR DADOS Beneficiário - O parâmetro é a quantidade de dados a ser gerado. Ex.: gerarDadosBenef(1);
+
+/*
 function gerarDadosBenef(qnt) {
     for (index = 0; index < qnt; index++) {
         gerarDados();
@@ -43,6 +27,8 @@ function gerarDadosBenef(qnt) {
         beneficiarios.push(benef);
     }
 }
+
+*/
 
 //CONEXÃO COM O BANCO DE DADOS
 var mysql = require('mysql');
@@ -55,27 +41,26 @@ var con = mysql.createConnection({
 });
 
 //SETANDO VALORES NOS VETORES DE USUARIOS
-gerarDadosContrib(2);
+gerarDadosContrib(1);
 
 //injetando comandos SQL no BD.
 
 con.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
-   // var usedb = "USE despensacheia";
+    // var usedb = "USE despensacheia";
     var sql = "INSERT INTO contribuidor (cnpj, f_name, l_name, email, cep, senha, telefone) VALUES ?";
 
-
     function InserirDadosBd(){
-    //selecionando o db
-    con.query("USE despensacheia", function (err, result) {
-        if (err) throw err;
-      }); 
-    // adicionando os dados
-    con.query(sql, [contribuidores] , function (err, result) {
-        if (err) throw err;
-        console.log("Dados adicionados!");
-      }); 
+        //selecionando o db
+        con.query("USE despensacheia", function (err, result) {
+            if (err) throw err;
+          }); 
+        // adicionando os dados
+        con.query(sql, [contribuidores] , function (err, result) {
+            if (err) throw err;
+            console.log("Dados adicionados!");
+          }); 
     }
     InserirDadosBd();
 
