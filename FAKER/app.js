@@ -58,10 +58,12 @@ function InserirDadosContrib(qnt) {
 
 //DADOS DE BENEFICIÁRIO
 function InserirDadosBenef(qnt) {
-
+    //código sql
     let insertBenef = "INSERT INTO beneficiario (cpf, f_name, l_name, email, cep, senha, telefone, nascimento) VALUES ?"
-    //!!!  importante escolher quantas vezes os dados serão gerados !!!
+    //gerando os dados
     gerarDadosBenef(qnt);
+
+
     //selecionando o db
     con.query("USE despensacheia", function (err, result) {
         if (err) throw err;
