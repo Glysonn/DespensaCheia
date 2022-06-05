@@ -21,7 +21,7 @@ const gerarDados = function () {
     cpf = brfaker.br.cpf();       //cpf
     cnpj = brfaker.br.cnpj();      //cnpj
     cep = faker.address.zipCode();    //cep
-    senha = faker.random.alphaNumeric(tamSenha(5, 15));   //senha
+    senha = faker.internet.password(tamSenha(5, 15));   //senha
     return fname, lname, email, telefone, nasc, cpf, cnpj, cep, senha;
 };
 
