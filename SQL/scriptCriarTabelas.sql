@@ -33,6 +33,6 @@ FOREIGN KEY (cpf_beneficiario) REFERENCES beneficiario(cpf)
 ---
 CREATE TABLE itens_pacote(
 nomeitem VARCHAR(30),
-quantidade BIT
+quantidade BIT CHECK (quantidade>0)
 );
 ---
