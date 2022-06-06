@@ -3,7 +3,7 @@ CREATE SCHEMA despensacheia IF NOT EXISTS;
 USE despensacheia;
 ---
 CREATE TABLE contribuidor IF NOT EXISTS(
-cnpj varchar(18) NOT NULL PRIMARY KEY,
+cnpj char(14) NOT NULL PRIMARY KEY,
 f_name varchar(100) NOT NULL,
 l_name varchar(100) NOT NULL,
 email varchar(100) NOT NULL,
@@ -13,7 +13,7 @@ telefone varchar(19) NOT NULL
 );
 ---
 CREATE TABLE beneficiario IF NOT EXISTS(
-cpf varchar(15) NOT NULL PRIMARY KEY,
+cpf char(11) NOT NULL PRIMARY KEY,
 f_name varchar(100) NOT NULL,
 l_name varchar(100) NOT NULL,
 email varchar(100) NOT NULL,
@@ -24,15 +24,15 @@ nascimento DATE NOT NULL
 );
 ---
 CREATE TABLE pacote IF NOT EXISTS(
-id INT NOT NULL PRIMARY KEY,
+id_pacote INT NOT NULL PRIMARY KEY,
 cnpj_contribuidor varchar(18) NOT NULL, 
 cpf_beneficiario varchar(15) NOT NULL,
 FOREIGN KEY (cnpj_contribuidor) REFERENCES contribuidor(cnpj),
-FOREIGN KEY (id_item) REFERENCES item_pacote(id)
+FOREIGN KEY (id_item) REFERENCES item_pacote(id_item)
 );
 ---
 CREATE TABLE item_pacote IF NOT EXISTS(
-id INT NOT NULL PRIMARY KEY,
+id_item INT NOT NULL PRIMARY KEY,
 nomeitem VARCHAR(30),
 quantidade BIT CHECK (quantidade>0)
 );
