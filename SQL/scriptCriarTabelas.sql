@@ -26,7 +26,7 @@ nascimento DATE NOT NULL
 CREATE TABLE IF NOT EXISTS item_pacote(
 id_item INT NOT NULL PRIMARY KEY,
 nomeitem VARCHAR(30),
-quantidade TINYINT CHECK (quantidade>0)
+quantidade INT CHECK (quantidade>0)
 );
 --
 CREATE TABLE IF NOT EXISTS pacote(
