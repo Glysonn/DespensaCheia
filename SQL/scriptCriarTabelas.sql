@@ -17,7 +17,7 @@ cpf char(11) NOT NULL PRIMARY KEY,
 f_name varchar(100) NOT NULL,
 l_name varchar(100) NOT NULL,
 email varchar(100) NOT NULL,
-cep char(8) NOT NULL,
+cep char(9) NOT NULL,
 senha varchar(20) NOT NULL,
 telefone char(16),
 nascimento DATE NOT NULL
