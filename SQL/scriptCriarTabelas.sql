@@ -31,7 +31,7 @@ quantidade TINYINT CHECK (quantidade>0)
 --
 CREATE TABLE IF NOT EXISTS pacote(
 id_pacote INT NOT NULL PRIMARY KEY,
-id_item INT NOT NULL PRIMARY KEY,
+id_item INT NOT NULL,
 cnpj_contribuidor varchar(18) NOT NULL, 
 cpf_beneficiario varchar(15) NOT NULL,
 FOREIGN KEY (cnpj_contribuidor) REFERENCES contribuidor(cnpj),
