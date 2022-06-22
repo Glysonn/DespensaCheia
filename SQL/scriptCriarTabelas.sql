@@ -32,9 +32,9 @@ quantidade INT CHECK (quantidade>0)
 CREATE TABLE IF NOT EXISTS pacote(
 id_pacote INT NOT NULL PRIMARY KEY,
 id_item INT NOT NULL,
-cnpj_contribuidor varchar(18) NOT NULL, 
-cpf_beneficiario varchar(15) NOT NULL,
-FOREIGN KEY (cnpj_contribuidor) REFERENCES contribuidor(cnpj),
-FOREIGN KEY (id_item) REFERENCES item_pacote(id_item)
+cnpj_contribuidor char(14) NOT NULL, 
+cpf_beneficiario char(11) NOT NULL,
+CONSTRAINT fk_cnpj FOREIGN KEY (cnpj_contribuidor) REFERENCES contribuidor(cnpj),
+CONSTRAINT fk_item FOREIGN KEY (id_item) REFERENCES item_pacote(id_item)
 );
 --
