@@ -83,5 +83,5 @@ function InserirDadosBenef(qnt) {
 inserirDadosBd();
 
 //(passar como parâmetro a quantidade de vezes que vai gerar o dado)
-InserirDadosContrib(5);  //insere os dados gerados de contribuidor
+InserirDadosContrib(0);  //insere os dados gerados de contribuidor
 InserirDadosBenef(5); //insere os dados gerados de beneficiário
