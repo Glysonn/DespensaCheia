@@ -1,0 +1,22 @@
+{
+  "name": "despensacheia",
+  "version": "1.0.0",
+  "description": "faker : npm install @faker-js/faker --save-dev\r faker br: npm install faker-br",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Glysonn/DespensaCheia.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Glysonn/DespensaCheia/issues"
+  },
+  "homepage": "https://github.com/Glysonn/DespensaCheia#readme",
+  "devDependencies": {
+    "@faker-js/faker": "^7.3.0"
+  }
+}
