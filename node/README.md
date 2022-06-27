@@ -1,5 +1,8 @@
 <h1>Node</h1>
-Node code. Must install (via npm): Faker, Faker-br, Mysql 
+Node code to generate fake data to the database, using Faker lib. 
+>Must install (via npm):
+>Faker, Faker-br, Mysql 
+
 <h2>Faker</h2>
 
 ```npm install @faker-js/faker --save-dev```
